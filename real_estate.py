@@ -9,7 +9,7 @@ st.set_page_config(page_title="Price_House", page_icon="🏠")
 # Definir modelos por ciudad
 modelos = {
     "Cali": "modelo_final_cal",
-    "Cartagena": "modelo_final_cartagena1",
+    "Cartagena": "modelo_final_cartagena",
 }
 
 # Definir listas de barrios por ciudad
