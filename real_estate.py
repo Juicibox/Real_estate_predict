@@ -2,6 +2,7 @@ import streamlit as st
 import pickle
 import pandas as pd
 from pycaret.regression import *  #pip install pycaret
+import xgboost
 
 st.set_page_config(page_title="Price_House", page_icon="🏠")
 
