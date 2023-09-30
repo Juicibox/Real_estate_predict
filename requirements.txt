@@ -1,4 +1,4 @@
 streamlit
 pandas 
 pycaret
-xgboost
+xgboost == 1.7.6
