@@ -9,15 +9,15 @@ st.set_page_config(page_title="Price_House", page_icon="🏠")
 # Definir modelos por ciudad
 modelos = {
     "Cali": "modelo_final_cal",
-    "Cartagena": "modelo_final_cartagena",
+    "Cartagena": "modelo_final_cartagena1",
 }
 
 # Definir listas de barrios por ciudad
 barrios_ciudad_A = ["Pance", "Valle Del Lili", "Santa Teresita", "Ciudad Jardin", "Ciudad Campestre", "Prados Del Norte", "La Flora", "El Ingenio",
                     "Bellavista", "Caney", "Aguacatal","Bochalema", "La Hacienda", "Santa Rita", "Santa Anita", "Juanambu", "Villa Fatima", "El Refugio"]
 
-barrios_ciudad_B = ["Manga","Bocagrande","Crespo","Boquilla","Castillo Grande","Pie De La Popa","Zona Norte","Laguito","Cabrero","Boca Grande",
-                    "Recreo","Torices","Marbella","Concepcion","Castillogrande","Providencia","Alameda La Victoria","Getsemani","Barcelona De Indias"]
+barrios_ciudad_B = ["Manga","Crespo","Boquilla","Castillo Grande","Pie De La Popa","Zona Norte","Laguito","Cabrero","Boca Grande",
+                    "Recreo","Torices","Marbella","Concepcion","Providencia","Alameda La Victoria","Getsemani","Barcelona De Indias"]
 
 
 # Añadir una barra lateral (sidebar)
