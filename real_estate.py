@@ -61,7 +61,7 @@ barrio_seleccionado = None
 
 # Verificar si se seleccionó un barrio y asignarlo a la variable
 if barrios:
-    barrio_seleccionado = f'barrio_{barrios[0]}'
+    barrio_seleccionado = f'barrio_{barrios}'
     valores_barrios  = seleccionar_barrio(barrio_seleccionado, mi_lista)
 
 area = st.slider("Área", 30, 1000, 80)
