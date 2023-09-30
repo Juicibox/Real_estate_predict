@@ -33,11 +33,11 @@ modelo = load_model(modelos[ciudad])
 
 # Asignar la lista de barrios correspondiente a la ciudad seleccionada
 if ciudad == "Cali":
-    barrios = st.sidebar.selectbox("Elegir barrio:", barrios_ciudad_A)
+    barrios = st.sidebar.selectbox("Elegir zona:", barrios_ciudad_A)
     with open('lista_colum_cali.pkl', 'rb') as f:
         mi_lista = pickle.load(f)
 elif ciudad == "Cartagena":
-    barrios = st.sidebar.selectbox("Elegir barrios:", barrios_ciudad_B)
+    barrios = st.sidebar.selectbox("Elegir zona:", barrios_ciudad_B)
     with open('lista_colum_cartage.pkl', 'rb') as f:
         mi_lista = pickle.load(f)
 #elif ciudad == "Ciudad C":
