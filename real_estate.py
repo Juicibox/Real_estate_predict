@@ -8,7 +8,7 @@ st.set_page_config(page_title="Price_House", page_icon="🏠")
 
 # Definir modelos por ciudad
 modelos = {
-    "Bogota": "modelo_final_bogo",
+    "Bogota": "modelos/modelo_final_bogo",
     "Cali": "modelo_final_cal",
     "Cartagena": "modelo_final_cartagena",
     "Medellin": "modelo_final_medellin"
