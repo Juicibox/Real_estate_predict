@@ -35,31 +35,64 @@ barrios_ciudad_D =  ['Poblado', 'Belen', 'Laureles', 'Lorena', 'Patio Bonito', '
 # Añadir una barra lateral (sidebar)
 st.sidebar.title("Configuración")
 
+#Añadir barra de tipo en el que se encuentra la propiedad
+tipo = st.sidebar.selectbox("Propiedad en:", ["Venta", "Arriendo"])
+# Dar espacio
+st.sidebar.text('')
+
 # Agregar una lista desplegable para elegir la ciudad
 ciudad = st.sidebar.selectbox("Elegir ciudad:", list(modelos.keys()))
+st.sidebar.text('')
 
 
-
-# Asignar el modelo correspondiente a la ciudad seleccionada
-modelo = load_model(modelos[ciudad])
+# Asignar el modelo correspondiente tipo y a la ciudad 
+if tipo == "Venta":
+    modelo = load_model(modelos[ciudad])
+elif tipo == "Arriendo":
+    if ciudad == "Bogota":
+        modelo = tf.keras.models.load_model('rnnBogota.h5')
+    elif ciudad == "Medellin":
+        modelo = tf.keras.models.load_model('rnnmedallo.h5')
+    else:
+        modelo = load_model(modelos2[ciudad])
 
 # Asignar la lista de barrios correspondiente a la ciudad seleccionada
-if ciudad == "Bogota":
-    barrios = st.sidebar.selectbox("Elegir zona:", barrios_ciudad_A)
-    with open('list/lista_colum_bogo.pkl', 'rb') as f:
-        mi_lista = pickle.load(f)
-elif ciudad == "Cali":
-    barrios = st.sidebar.selectbox("Elegir zona:", barrios_ciudad_B)
-    with open('list/lista_colum_cali.pkl', 'rb') as f:
-        mi_lista = pickle.load(f)
-elif ciudad == "Cartagena":
-    barrios = st.sidebar.selectbox("Elegir zona:", barrios_ciudad_C)
-    with open('list/lista_colum_cartage.pkl', 'rb') as f:
-        mi_lista = pickle.load(f)
-elif ciudad == "Medellin":
-    barrios = st.sidebar.selectbox("Elegir zona:", barrios_ciudad_D)
-    with open('list/lista_colum_medellin.pkl', 'rb') as f:
-        mi_lista = pickle.load(f)
+if tipo == "Venta":
+    if ciudad == "Bogota":
+        barrios = st.sidebar.selectbox("Elegir barrio:", barrios_ciudad_A)
+        with open('list/lista_colum_bogo.pkl', 'rb') as f:
+            mi_lista = pickle.load(f)
+    elif ciudad == "Cali":
+        barrios = st.sidebar.selectbox("Elegir barrios:", barrios_ciudad_B)
+        with open('list/lista_colum_cali.pkl', 'rb') as f:
+            mi_lista = pickle.load(f)
+    elif ciudad == "Cartagena":
+        barrios = st.sidebar.selectbox("Elegir barrios:", barrios_ciudad_C)
+        with open('list/lista_colum_cartage.pkl', 'rb') as f:
+            mi_lista = pickle.load(f)
+    elif ciudad == "Medellin":
+        barrios = st.sidebar.selectbox("Elegir barrios:", barrios_ciudad_D)
+        with open('list/lista_colum_medellin.pkl', 'rb') as f:
+            mi_lista = pickle.load(f)
+
+elif tipo == "Arriendo":
+    if ciudad == "Bogota":
+        barrios = st.sidebar.selectbox("Elegir barrios:", barrios_ciudad_A)
+        with open('list/lista_colum_bogota_arr.pkl', 'rb') as f:
+            mi_lista = pickle.load(f)
+    elif ciudad == "Cali":
+        barrios = st.sidebar.selectbox("Elegir barrios:", barrios_ciudad_B)
+        with open('list/lista_colum_cali_arr.pkl', 'rb') as f:
+            mi_lista = pickle.load(f)
+    elif ciudad == "Cartagena":
+        barrios = st.sidebar.selectbox("Elegir barrios:", barrios_ciudad_C)
+        with open('list/lista_colum_carta_arr.pkl', 'rb') as f:
+            mi_lista = pickle.load(f)
+    elif ciudad == "Medellin":
+        barrios = st.sidebar.selectbox("Elegir barrios:", barrios_ciudad_D)
+        with open('list/lista_colum_medellin_arr.pkl', 'rb') as f:
+            mi_lista = pickle.load(f)
+    
 
 # Resto del código
 if st.button('Volver a proyectos'):
@@ -82,7 +115,7 @@ if barrios:
     barrio_seleccionado = f'barrio_{barrios}'
     valores_barrios  = seleccionar_barrio(barrio_seleccionado, mi_lista)
 
-area = st.slider("Área", 30, 1000, 80)
+area = st.slider("Área", 50, 600, 80)
 habitacion = st.slider("Habitaciones", 1, 6, 2)
 bano = st.slider("Baños", 1, 6, 1)
 parqueadero = st.slider("Parqueaderos", 0, 5, 1)
@@ -96,10 +129,21 @@ valores_seleccionados = {
 
 ok = st.button("Calcular Precio")
 if ok:
-
     valores_combinados = {**valores_seleccionados, **valores_barrios}
     datos = pd.DataFrame([valores_combinados])
-    prediccion = predict_model(modelo, data=datos)
+    if tipo == "Venta":
+        prediccion = predict_model(modelo, data=datos)
+        num = int(prediccion.iloc[:, -1])
+    elif tipo == "Arriendo":
+        if ciudad in ["Bogota", "Medellin"]:
+            norm = tf.keras.utils.normalize(datos, axis=1)
+            prediccion = modelo.predict(norm)
+            num = prediccion.item()
+            num = int(num)
+        else:
+            prediccion = predict_model(modelo, data=datos)
+            num = int(prediccion.iloc[:, -1])
 
-    num = int(prediccion.iloc[:, -1])
+
+    
     st.subheader(f"El precio estimado de la vivienda es: {num:,d} millones de pesos.")
