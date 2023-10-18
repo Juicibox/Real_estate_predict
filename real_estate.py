@@ -3,6 +3,7 @@ import pickle
 import pandas as pd
 from pycaret.regression import *  #pip install pycaret
 import xgboost
+import tensorflow as tf
 
 st.set_page_config(page_title="Price_House", page_icon="🏠")
 
@@ -11,8 +12,11 @@ modelos = {
     "Bogota": "modelo_final_bogo",
     "Cali": "modelo_final_cal",
     "Cartagena": "modelo_final_cartagena",
-    "Medellin": "modelo_final_medellin"
-}
+    "Medellin": "modelo_final_medellin"}
+
+modelos2 = {
+    "Cali": "modelo_arr_cali",
+    "Cartagena": "modelo_arr_cartagena"}
 
 # Definir listas de barrios por ciudad
 barrios_ciudad_A = ['Cedritos', 'Fontibon', 'Colina Campestre', 'Santa Barbara', 'San Jose De Bavaria', 'Chico Norte', 'Usaquen','Chapinero', 'Engativá', 'Santa Paula', 'Los Rosales', 'Mazuren', 
