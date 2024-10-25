@@ -5,7 +5,7 @@ from pycaret.regression import *  #pip install pycaret
 import xgboost
 import tensorflow as tf
 
-st.set_page_config(page_title="Price_House", page_icon="🏠")
+st.set_page_config(page_title="Price_House", page_icon="logo.png")
 
 # Definir modelos por ciudad
 modelos = {
